@@ -6,6 +6,6 @@ authors:
 description: |
   Crystal bindings to the Brotli compression library.
 
-crystal: 0.33.0
+crystal: 0.34.0
 
 license: MIT
