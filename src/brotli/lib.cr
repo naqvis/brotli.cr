@@ -1,4 +1,4 @@
-module Brotli
+module Compress::Brotli
   @[Link(ldflags: "`command -v pkg-config > /dev/null && pkg-config --libs libbrotlicommon libbrotlidec libbrotlienc 2> /dev/null|| printf %s '--llbrotlicommon --llbrotlidec --llbrotlienc'`")]
 
   lib LibBrotli

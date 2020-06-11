@@ -1,6 +1,6 @@
 # `Brotli` Crystal Wrapper
-module Brotli
-  VERSION = "0.1.0"
+module Compress::Brotli
+  VERSION = "0.1.2"
 
   class BrotliError < Exception
   end

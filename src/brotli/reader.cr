@@ -8,13 +8,13 @@
 # require "brotli"
 
 # string = File.open("file.br") do |file|
-#    Brotli::Reader.open(file) do |br|
+#    Compress::Brotli::Reader.open(file) do |br|
 #      br.gets_to_end
 #    end
 # end
 # pp string
 # ```
-class Brotli::Reader < IO
+class Compress::Brotli::Reader < IO
   include IO::Buffered
 
   # If `#sync_close?` is `true`, closing this IO will close the underlying IO.

@@ -20,7 +20,7 @@ Crystal bindings to the [Brotli](https://github.com/google/brotli) compression l
 require "brotli"
 ```
 
-`brotli` shard provides both `Brotli::Reader` and `Brotli::Writer` , as well as `Brotli#decode` and `Brotli#encode` methods for quick usage.
+`brotli` shard provides both `Compress::Brotli::Reader` and `Compress::Brotli::Writer` , as well as `Compress::Brotli#decode` and `Compress::Brotli#encode` methods for quick usage.
 
 Refer to `specs` for sample usage.
 
@@ -30,7 +30,7 @@ Refer to `specs` for sample usage.
 require "brotli"
 
 string = File.open("file.br") do |file|
-   Brotli::Reader.open(file) do |brotli|
+   Compress::Brotli::Reader.open(file) do |brotli|
      brotli.gets_to_end
    end
 end
@@ -46,7 +46,7 @@ File.write("file.txt", "abcd")
 
 File.open("./file.txt", "r") do |input_file|
   File.open("./file.br", "w") do |output_file|
-    Brotli::Writer.open(output_file) do |brotli|
+    Compress::Brotli::Writer.open(output_file) do |brotli|
       IO.copy(input_file, brotli)
     end
   end

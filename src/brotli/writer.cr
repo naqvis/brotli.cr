@@ -15,13 +15,13 @@
 #
 # File.open("./file.txt", "r") do |input_file|
 #   File.open("./file.br", "w") do |output_file|
-#     Brotli::Writer.open(output_file) do |br|
+#     Compress::Brotli::Writer.open(output_file) do |br|
 #       IO.copy(input_file, br)
 #     end
 #   end
 # end
 # ```
-class Brotli::Writer < IO
+class Compress::Brotli::Writer < IO
   # If `#sync_close?` is `true`, closing this IO will close the underlying IO.
   property? sync_close : Bool
 
@@ -73,10 +73,10 @@ class Brotli::Writer < IO
   end
 
   # See `IO#write`.
-  def write(slice : Bytes) : Nil
+  def write(slice : Bytes) : Int64
     check_open
 
-    return if slice.empty?
+    return 0i64 if slice.empty?
     write_chunk slice, LibBrotli::EncoderOperation::OperationProcess
   end
 
@@ -108,7 +108,7 @@ class Brotli::Writer < IO
 
   private def write_chunk(chunk : Slice, op : LibBrotli::EncoderOperation)
     raise BrotliError.new("Writer closed") if @closed || @state.nil?
-
+    written = 0i64
     loop do
       size = chunk.size
       avail_in = size.to_u64
@@ -123,14 +123,15 @@ class Brotli::Writer < IO
 
       chunk = chunk[bytes_consumed..]
       if output_data_size != 0
-        @output.write output.to_slice(output_data_size)
+        written += @output.write output.to_slice(output_data_size)
       end
       break if chunk.size == 0 && !has_more
     end
+    written
   end
 end
 
-struct Brotli::WriterOptions
+struct Compress::Brotli::WriterOptions
   # compression mode
   property mode : LibBrotli::EncoderMode
   # controls the compression speed vs compression density tradeoff. Higher the quality,
