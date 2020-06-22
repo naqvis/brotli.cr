@@ -73,7 +73,7 @@ class Compress::Brotli::Writer < IO
   end
 
   # See `IO#write`.
-  def write(slice : Bytes) : Int64
+  def write(slice : Bytes) : Nil
     check_open
 
     return 0i64 if slice.empty?
@@ -108,7 +108,6 @@ class Compress::Brotli::Writer < IO
 
   private def write_chunk(chunk : Slice, op : LibBrotli::EncoderOperation)
     raise BrotliError.new("Writer closed") if @closed || @state.nil?
-    written = 0i64
     loop do
       size = chunk.size
       avail_in = size.to_u64
@@ -123,11 +122,10 @@ class Compress::Brotli::Writer < IO
 
       chunk = chunk[bytes_consumed..]
       if output_data_size != 0
-        written += @output.write output.to_slice(output_data_size)
+        @output.write output.to_slice(output_data_size)
       end
       break if chunk.size == 0 && !has_more
     end
-    written
   end
 end
 
