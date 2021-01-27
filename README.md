@@ -1,4 +1,7 @@
 # Crystal Brotli
+![CI](https://github.com/naqvis/brotli/workflows/CI/badge.svg)
+[![GitHub release](https://img.shields.io/github/release/naqvis/brotli.svg)](https://github.com/naqvis/brotli/releases)
+[![Docs](https://img.shields.io/badge/docs-available-brightgreen.svg)](https://naqvis.github.io/brotli/)
 
 Crystal bindings to the [Brotli](https://github.com/google/brotli) compression library.
 
