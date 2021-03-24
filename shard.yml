@@ -1,11 +1,11 @@
 name: brotli
-version: 0.1.4
+version: 0.1.5
 
 authors:
   - Ali Naqvi <syed.alinaqvi@gmail.com>
 description: |
   Crystal bindings to the Brotli compression library.
 
-crystal: 0.36.0
+crystal: ">= 0.36.0, < 2.0.0"
 
 license: MIT

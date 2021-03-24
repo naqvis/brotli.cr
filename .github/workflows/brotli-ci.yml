@@ -30,6 +30,7 @@ jobs:
     - name: Generate docs
       run: crystal doc
     - name: Deploy
+      if: github.ref == 'refs/heads/main'
       uses: JamesIves/github-pages-deploy-action@3.7.1
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
